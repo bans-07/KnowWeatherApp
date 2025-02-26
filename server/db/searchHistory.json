@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "ab2f09ea-e9ab-4b4b-8365-d11dc9b805ee",
+    "name": "san diego"
+  },
+  {
+    "id": "3ec35427-969d-4aaf-8854-a08679f9202c",
+    "name": "orlando"
+  },
+  {
+    "id": "6a039cdb-0727-4a68-ad5a-9581639f30f6",
+    "name": "virginia"
+  },
+  {
+    "id": "f9546ab2-09f4-4bdd-8f6f-65304c9da8a9",
+    "name": "florida"
+  }
+]
