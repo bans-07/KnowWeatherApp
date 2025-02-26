@@ -34,33 +34,70 @@ const humidityEl: HTMLParagraphElement = document.getElementById(
 API Calls
 
 */
-
 const fetchWeather = async (cityName: string) => {
-  const response = await fetch('/api/weather/', {
-    method: 'GET',
+  const response = await fetch('/api/weather', { // Removed trailing slash
+    method: 'POST', // ✅ Change to POST
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ cityName }),
+    body: JSON.stringify({ cityName }), // ✅ Only send body with POST
   });
 
-  const weatherData = await response.json();
+  if (!response.ok) {
+    console.error("Failed to fetch weather:", await response.text());
+    return;
+  }
 
-  console.log('weatherData: ', weatherData);
+  const weatherData = await response.json();
+  console.log('weatherData:', weatherData);
 
   renderCurrentWeather(weatherData[0]);
   renderForecast(weatherData.slice(1));
 };
 
+
+// const fetchWeather = async (cityName: string) => {
+//   const response = await fetch('/api/weather/', {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({ cityName }),
+//   });
+
+//   const weatherData = await response.json();
+
+//   console.log('weatherData: ', weatherData);
+
+//   renderCurrentWeather(weatherData[0]);
+//   renderForecast(weatherData.slice(1));
+// };
+
 const fetchSearchHistory = async () => {
-  const history = await fetch('/api/weather/history', {
+  const response = await fetch('/api/weather/history', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   });
-  return history;
+
+  if (!response.ok) {
+    console.error("Failed to fetch search history:", await response.text());
+    return [];
+  }
+
+  return response.json(); // ✅ Convert response to JSON
 };
+
+// const fetchSearchHistory = async () => {
+//   const history = await fetch('/api/weather/history', {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   });
+//   return history;
+// };
 
 const deleteCityFromHistory = async (id: string) => {
   await fetch(`/api/weather/history/${id}`, {
